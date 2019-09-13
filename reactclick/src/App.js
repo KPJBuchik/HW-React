@@ -26,10 +26,9 @@ class App extends React.Component {
       this.setState({ score });
       this.setState({ friends });
     }
-    else if (score < 8) {
+    else if (score < friends.length) {
       clickedFriend[0].clicked = true;
       score++
-
     }
 
     if (score > highScore) {
@@ -37,7 +36,7 @@ class App extends React.Component {
       this.setState({ highScore });
 
 
-      friends.sort(()=> { return .5- Math.random() });
+      friends.sort(()=> { return 0.5- Math.random() });
       this.setState({ friends });
       this.setState({ score });
 
@@ -45,7 +44,7 @@ class App extends React.Component {
       clickedFriend[0].clicked = true;
       score = 0;
       this.setState({ highScore });
-      score++
+      this.setState({ score:this.state.score + 1 });
       for (let i = 0; i < friends.length; i++) {
         friends[i].clicked = false;
       }
@@ -65,10 +64,10 @@ class App extends React.Component {
           Score: {this.state.score}<br></br>
           High Score: {this.state.highScore}
         </div>
-        <Title>Clicky Game</Title>
+        <Title>Memory Game</Title>
         
 
-        {this.state.friends.map(friend => <FriendCard handleClick={this.handleClick} key={friend.id} id={friend.id} image={friend.image} />)}
+        {this.state.friends.map(friend => <FriendCard handleClick={this.handleClick} key={friend.id} id={friend.id} image={friend.image} {...friends} />)}
 
       </Wrapper>
     )
