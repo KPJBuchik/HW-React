@@ -4,6 +4,8 @@ import Title from "./components/Title";
 import FriendCard from "./components/FriendCard";
 import friends from "./friends.json";
 
+let score = 0
+let highScore = 0
 class App extends React.Component {
   state = {
     friends,
@@ -15,22 +17,22 @@ class App extends React.Component {
     const friends = this.state.friends
     const clickedFriend = friends.filter(friend => friend.id === id);
     if (clickedFriend[0].clicked) {
-      this.setState({ score: 0 });
+      score = 0
 
       for (let i = 0; i < friends.length; i++) {
         friends[i].clicked = false;
       }
-
+      this.setState({highScore})
       this.setState({ score });
       this.setState({ friends });
     }
     else if (score < friends.length) {
       clickedFriend[0].clicked = true;
-      this.setState({ score: this.state.score+1 });
+      score++
     }
 
     if (score > highScore) {
-      this.setState({ highScore: score });
+      highScore = score;
       this.setState({ highScore });
 
 
@@ -40,7 +42,7 @@ class App extends React.Component {
 
     } else {
       clickedFriend[0].clicked = true;
-      this.setState({ score: 0 });
+      score = 0;
       this.setState({ highScore });
       this.setState({ score:this.state.score + 1 });
       for (let i = 0; i < friends.length; i++) {
@@ -58,7 +60,7 @@ class App extends React.Component {
   render() {
     return (
       <Wrapper>
-          <div className="scores">
+              <div className="scores">
           Score: {this.state.score}<br></br>
           High Score: {this.state.highScore}
         </div>

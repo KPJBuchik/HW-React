@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-const Title = props => (
+function Title (props) {
   <div className="header">
     <div className="title">{props.children}</div>
     <div className="scores">
@@ -9,6 +9,6 @@ const Title = props => (
 
 
   </div>
-);
+}
 
 export default Title;
