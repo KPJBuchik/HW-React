@@ -22,21 +22,26 @@ class App extends React.Component {
    const clickedFriend = this.state.friends.filter(friend => friend.id === id);
     clickedFriend[0].clicked=true
     if (clickedFriend[0].clicked) {
-      clickedFriend[0].clicked = false;
+      this.setState({score:score})
+      clickedFriend[0].clicked = true;
+
+      for (let i = 0; i < friends.length; i++) {
+        friends[i].clicked = false;
+      }
 
       this.setState({ score:this.state.score+1 });
       this.setState({ highScore:this.state.highScore+1 });
 
     }
-    else if (clickedFriend[0].clicked === false) {
+    else if (clickedFriend[0].clicked === true) {
       this.setState({ score:score=0 });
 
     }
-    if (score===8 || friends.clicked===false){
+    if (score===8 || friends.clicked===true){
     this.setState({ score:this.state.score=0 });
     this.setState({ highScore:this.state.highScore=8 });
 
-    clickedFriend.clicked=false
+    clickedFriend[0].clicked=true
 
     }if (score>highScore){
       this.setState({ friends });
