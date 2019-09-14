@@ -7,70 +7,62 @@ import friends from "./friends.json";
 class App extends React.Component {
   state = {
     friends,
-    score:0,
-    highScore:0
+    score: 0,
+    highScore: 0
   };
 
-  handleClick = id => {
-    const friends = this.state.friends
-    const clickedFriend = friends.filter(friend => friend.id === id);
-    if (clickedFriend[0].clicked) {
-      this.setState({ score: 0 });
-
-      for (let i = 0; i < friends.length; i++) {
-        friends[i].clicked = false;
-      }
-
-      this.setState({ score });
-      this.setState({ friends });
-    }
-    else if (score < friends.length) {
-      clickedFriend[0].clicked = true;
-      this.setState({ score: this.state.score+1 });
-    }
-
-    if (score > highScore) {
-      this.setState({ highScore: score });
-      this.setState({ highScore });
 
 
-      friends.sort(()=> { return 0.5- Math.random() });
-      this.setState({ friends });
-      this.setState({ score });
 
-    } else {
-      clickedFriend[0].clicked = true;
-      this.setState({ score: 0 });
-      this.setState({ highScore });
-      this.setState({ score:this.state.score + 1 });
-      for (let i = 0; i < friends.length; i++) {
-        friends[i].clicked = false;
-      }
+  handleClick = (id, clicked) => {
+    const friendsClick = this.state.friends;
 
-      friends.sort( () => { return 0.5 - Math.random() });
+    if (clicked && this.state.score<friends.length) {
+      friendsClick.forEach((friend, i) => {
+        friendsClick[i].clicked = false;
+      });
+      return this.setState({
+        friend: friendsClick.sort(() => Math.random() - 0.5),
 
-      this.setState({ friends });
-      this.setState({ score });
+        score: 0
+      })
+    } 
+    else {
+      friendsClick.forEach((friend, i) => {
+        if (id === friend.id) {
+          friendsClick[i].clicked = true;
+        }
+      });
+      const { highScore, score } = this.state;
+      const scored = score + 1;
+      const newHighScore = scored > highScore ? scored : highScore;
 
+      return this.setState({
+        friend: friendsClick.sort(() => Math.random() - 0.5),
+        score: scored,
+        highScore: newHighScore,
+      })
     }
   };
+
+
 
   render() {
     return (
       <Wrapper>
-          <div className="scores">
+        <div className="scores">
           Score: {this.state.score}<br></br>
           High Score: {this.state.highScore}
         </div>
         <Title>Memory Game</Title>
-        
+
 
         {this.state.friends.map(friend => <FriendCard handleClick={this.handleClick} key={friend.id} id={friend.id} image={friend.image} {...friends} />)}
 
       </Wrapper>
     )
   }
-}
 
+}
 
 export default App;
