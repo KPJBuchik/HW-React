@@ -21,7 +21,7 @@ class App extends React.Component {
     const friends = this.state.friends
     const clickedFriend = friends.filter(friend => friend.id === id);
     if (clickedFriend[0].clicked) {
-      this.setState({ score });
+      this.setState({ score:score=0 });
 
       for (let i = 0; i < friends.length; i++) {
         friends[i].clicked = false;
@@ -30,7 +30,15 @@ class App extends React.Component {
     }
     else if (score < friends.length) {
       clickedFriend[0].clicked = true;
+      this.setState({score})
       score++
+
+    }
+    if (clickedFriend[0].clicked===true){
+      this.setState({friends });
+      this.setState({score });
+
+
     }
 
     if (score > highScore) {
@@ -41,16 +49,7 @@ class App extends React.Component {
       this.setState({ friends });
       this.setState({ score });
 
-    } else {
-      clickedFriend[0].clicked = true;
-      score=0
-      this.setState({ highScore });
-      this.setState({ score:this.state.score + 1 });
-      this.shuffleArray()
-      this.setState({ friends });
-      this.setState({ score });
-
-    }
+    } 
   };
 
 
