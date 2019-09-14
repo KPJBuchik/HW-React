@@ -34,7 +34,7 @@ class App extends React.Component {
     }
 
     if (score > highScore) {
-      highScore = score;
+      this.setState({highScore:highScore = score})
       this.setState({ highScore });
 
       this.shuffleArray()
@@ -43,7 +43,7 @@ class App extends React.Component {
 
     } else {
       clickedFriend[0].clicked = true;
-      this.setState({ score:0});
+      score=0
       this.setState({ highScore });
       this.setState({ score:this.state.score + 1 });
       this.shuffleArray()
